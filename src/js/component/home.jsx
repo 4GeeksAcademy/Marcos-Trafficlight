@@ -1,31 +1,39 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 //include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+//import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
 	const [selectedColor, setSelectedColor] = useState ("red");
 	const [purpleActivo, setPurpleActive] = useState (false);
+	
+	useEffect(() => {
+		const intervalRef = setInterval(cambiaColor, 2000);
+		return () => clearInterval(intervalRef);
+	}),[selectedColor, purpleActivo]
+	
 
 	const cambiaColor = () => {
-		if (selectedColor === "red") {
-			setSelectedColor("yellow");
-		} else if (selectedColor === "yellow") {
-			setSelectedColor("green");
-		} else if (selectedColor === "green"){
-			setSelectedColor("red");
-		} else {
+		if(!purpleActivo){
 			if (selectedColor === "red") {
 				setSelectedColor("yellow");
 			} else if (selectedColor === "yellow") {
 				setSelectedColor("green");
 			} else if (selectedColor === "green"){
-				setSelectedColor("purple");
-			} else if (selectedColor === "purple"){
 				setSelectedColor("red");
 			}
-		};
+		} else {
+				if (selectedColor === "red") {
+					setSelectedColor("yellow");
+				} else if (selectedColor === "yellow") {
+					setSelectedColor("green");
+				} else if (selectedColor === "green"){
+					setSelectedColor("purple");
+				} else if (selectedColor === "purple"){
+					setSelectedColor("red");
+				}
+			};
 	};
 		
 	
